@@ -35,6 +35,7 @@ import android.widget.ListView;
 public class TrainingListActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 12;
+    public static final int REQUEST_CODESHOW = 13;
     private TrainingAdapter wdAdapter;
     private TrainingsDataSource datasource;
     private ListView lvProduct;
@@ -48,7 +49,7 @@ public class TrainingListActivity extends AppCompatActivity {
 
     private LocationManager locMan;
     private locListener locLis;
-
+    private Training clickedTraining;
     private Geocoder geoCoder;
     List<Address> adresses;
 
@@ -151,9 +152,9 @@ public class TrainingListActivity extends AppCompatActivity {
                 //Anzeigen-> Zeigt Training an
                 // Aktualisieren -> >Training wird als erneut geübt aktualisiert
                 alertDialogBuilder
-                        .setMessage("Anzeigen oder Aktualisieren?")
+                        .setMessage("Aktualisieren?")
                         .setCancelable(false)
-                        .setPositiveButton("Anzeigen",new DialogInterface.OnClickListener() {
+                        .setPositiveButton("Details",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 //Intent um das AnzeigeActivity zu öffnen
                                 Intent showTrainingIntent = new Intent(getBaseContext(),ShowTrainingActivity.class);
@@ -164,8 +165,9 @@ public class TrainingListActivity extends AppCompatActivity {
                                 //das aktuellste Training aus der Liste nehmen (hoffentlich ist die letzte Training einheit in der Liste
                                 //die aktuellste)
                                 Training trainingToShow = trainings.get(trainings.size()-1);
+                                clickedTraining = training;
                                 //Training wird dem Intent mit gegeben
-                                showTrainingIntent.putExtra("showTraining",trainingToShow);
+                                showTrainingIntent.putExtra("showTraining",clickedTraining);
                                 checkForLocationPermission();
                                 Location tmpLoc =locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                                 showTrainingIntent.putExtra("Latitude", tmpLoc.getLatitude());
@@ -180,10 +182,11 @@ public class TrainingListActivity extends AppCompatActivity {
                                         showTrainingIntent.putExtra("imageToShow",trainingExtraToShow);
                                         System.out.println("Image added to Intent");
                                 }
-                                startActivityForResult(showTrainingIntent, REQUEST_CODE);
+
+                                startActivityForResult(showTrainingIntent, REQUEST_CODESHOW);
                             }
                         })
-                        .setNegativeButton("Aktualisieren",new DialogInterface.OnClickListener() {
+                        .setNegativeButton("JA",new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 // if this button is clicked, just close
                                 // the dialog box and do nothing
@@ -309,6 +312,15 @@ public class TrainingListActivity extends AppCompatActivity {
             trainingList.add(addNewTraining);
             wdAdapter.notifyDataSetChanged();
             sortListData();
+        }
+        if(requestCode == REQUEST_CODESHOW && resultCode == RESULT_OK) {
+            //System.out.println("DELETEEEEED MOFUCKERS "+trainingList+" SHOWTRAINING;   "+trainingList.get(trainingList.indexOf((Training) data.getSerializableExtra(("deleteTraining")))));
+            trainingList.remove(clickedTraining);
+            wdAdapter.notifyDataSetChanged();
+            sortListData();
+
+
+
         }
     }
 

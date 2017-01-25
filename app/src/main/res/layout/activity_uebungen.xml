@@ -47,7 +47,7 @@
         -->
 
         <android.support.design.widget.FloatingActionButton
-            android:src="@drawable/ic_add"
+            android:src="@drawable/ic_add_white_24dp"
             app:fabSize="normal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

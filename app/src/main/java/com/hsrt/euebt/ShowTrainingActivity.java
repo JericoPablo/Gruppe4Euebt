@@ -92,7 +92,7 @@ public class ShowTrainingActivity extends AppCompatActivity implements OnMapRead
 
     private void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -112,17 +112,28 @@ public class ShowTrainingActivity extends AppCompatActivity implements OnMapRead
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.save_toolbar, menu);
+        inflater.inflate(R.menu.delete_toolbar, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        List<Training> TrainingList = datasource.getAllTrainingsWithName(showTraining.getName());
+
+        for (Training t: TrainingList) {
+            datasource.deleteTraining(t);
+        }
+        result = RESULT_OK;
+        finish();
         return true;
     }
 
     @Override
     public void finish() {
+        Intent intent = new Intent();
+        System.out.println(showTraining.getName());
+        intent.putExtra("deleteTraining", showTraining);
+        setResult(result, intent);
         super.finish();
     }
 
