@@ -128,7 +128,6 @@ public class TrainingListActivity extends AppCompatActivity {
         }
         else
         {
-            System.out.println("KEINE BERECHTIGUNG");
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     REQUEST_CODE);
@@ -142,7 +141,7 @@ public class TrainingListActivity extends AppCompatActivity {
             @Override
             public void onObjectClick(final Training training) {
                // Item in der Liste wurde angeklickt, alert wird aufgerufen
-                System.out.println("Item Clicked");
+
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(TrainingListActivity.this);
 
                 // set title
@@ -176,11 +175,11 @@ public class TrainingListActivity extends AppCompatActivity {
                                 for (TrainingExtra trainingExtraToShow :trainingExtras) {
                                     if(trainingExtraToShow.getType().equals(TrainingExtra.ExtraType.Description)){
                                         showTrainingIntent.putExtra("showTrainingDescription",trainingExtraToShow);
-                                        System.out.println("Description added to Intent");
+
                                     }
                                     if(trainingExtraToShow.getType().equals(TrainingExtra.ExtraType.Image))
                                         showTrainingIntent.putExtra("imageToShow",trainingExtraToShow);
-                                        System.out.println("Image added to Intent");
+
                                 }
 
                                 startActivityForResult(showTrainingIntent, REQUEST_CODESHOW);
@@ -197,13 +196,12 @@ public class TrainingListActivity extends AppCompatActivity {
                                     checkForLocationPermission();
                                     tmpLoc =locMan.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                                     adresses = geoCoder.getFromLocation(tmpLoc.getLatitude(),tmpLoc.getLongitude(),1);
-                                    System.out.println("adresses     "+adresses);
+
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
 
                                 Training trainedTraining = datasource.addTraining(training.getName(), "" + adresses.get(0).getAddressLine(0), tmpLoc.getLatitude(), tmpLoc.getLongitude());
-                                System.out.println("Current number of units for \"" + training.getName() + "\": " + datasource.getAllTrainingsWithName(training.getName()).size());
                                 trainingList.remove(training);
                                 trainingList.add(trainedTraining);
                                 wdAdapter.notifyDataSetChanged();
@@ -224,35 +222,6 @@ public class TrainingListActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    // Will be called via the onClick attribute
-    // of the buttons in main.xml
-  /*  public void onClick(View view) {
-      @SuppressWarnings("unchecked")
-        ArrayAdapter<Training> adapter = (ArrayAdapter<Training>) getListAdapter();
-        Training Training = null;
-        switch (view.getId()) {
-            case R.id.add:
-                String[] Trainings = new String[] { "Piano", "English", "Sport" };
-                int nextInt = new Random().nextInt(3);
-                 //save the new Training to the database
-                String currentGPSLocation = "";
-                try {
-                    currentGPSLocation = ((LocationManager)getSystemService(Context.LOCATION_SERVICE)).getLastKnownLocation(LocationManager.GPS_PROVIDER).toString();
-                } catch (SecurityException e) { }
-                Training = datasource.addTraining(Trainings[nextInt], currentGPSLocation);
-                adapter.add(Training);
-                break;
-            case R.id.delete:
-                if (getListAdapter().getCount() > 0) {
-                    Training = (Training) getListAdapter().getItem(0);
-                    datasource.deleteTraining(Training);
-                    adapter.remove(Training);
-                }
-                break;
-        }
-        adapter.notifyDataSetChanged();
-    }
-*/
 
     public void clearTextField(EditText toClear){
         toClear.setText("");
@@ -267,20 +236,10 @@ public class TrainingListActivity extends AppCompatActivity {
         Intent addTrainingIntent = new Intent(this, addNewTrainingActivity.class);
         try {
             adresses = geoCoder.getFromLocation(tmpLoc.getLatitude(),tmpLoc.getLongitude(),1);
-            System.out.println("adresses     "+adresses);
-        } catch (IOException e) {
-            System.out.println("=============================================================================== KEINE ADRESSEN==================================");
-            e.printStackTrace();
-        }
 
-        System.out.println("#### GEODATEN - Umwandlung######");
-        System.out.println("adresses.get(0).getAddressLine(0) ->" + adresses.get(0).getAddressLine(0));
-        System.out.println("adresses.get(0).getLocality() ->" + adresses.get(0).getLocality());
-        System.out.println("adresses.get(0).getAdminArea() ->" + adresses.get(0).getAdminArea());
-        System.out.println("adresses.get(0).getCountryCode() -> "+adresses.get(0).getCountryCode());
-        System.out.println("adresses.get(0).getCountryName() ->" + adresses.get(0).getCountryName());
-        System.out.println("adresses.get(0).getCountryName() ->" + adresses.get(0).getPostalCode());
-        System.out.println("#### GEODATEN - Umwandlung######");
+        } catch (IOException e) {
+           e.printStackTrace();
+        }
 
         //addTrainingIntent.putExtra("Location",String.valueOf(tmpLoc.getLatitude()) + " # " +String.valueOf(tmpLoc.getLongitude()) );
         addTrainingIntent.putExtra("Location","" + adresses.get(0).getAddressLine(0));
@@ -314,7 +273,6 @@ public class TrainingListActivity extends AppCompatActivity {
             sortListData();
         }
         if(requestCode == REQUEST_CODESHOW && resultCode == RESULT_OK) {
-            //System.out.println("DELETEEEEED MOFUCKERS "+trainingList+" SHOWTRAINING;   "+trainingList.get(trainingList.indexOf((Training) data.getSerializableExtra(("deleteTraining")))));
             trainingList.remove(clickedTraining);
             wdAdapter.notifyDataSetChanged();
             sortListData();

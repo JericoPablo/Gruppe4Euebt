@@ -28,13 +28,6 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--
-        <TextView
-            android:text="Training Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/trainingNameTextView" />
-            -->
 
         <EditText
             android:layout_width="match_parent"
@@ -46,13 +39,7 @@
             android:textSize="16sp"
             android:id="@+id/trainingNameEditText" />
 
-        <!--
-        <TextView
-            android:text="Description"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/trainingDescriptionTextView" />
-        -->
+
 
         <android.support.design.widget.FloatingActionButton
             android:src="@drawable/ic_photo_camera_white_24dp"

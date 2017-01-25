@@ -25,16 +25,5 @@
         android:layout_centerVertical="true"
         android:layout_alignParentEnd="true" />
 
-    <!--
-    <TextView
-        android:id="@+id/training_description"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="There is no description"
-        android:layout_below="@id/training_name"
-        android:textSize="12sp"
-        android:maxLines="1"
-        android:ellipsize="end"
-        android:includeFontPadding="false" />
-    -->
+
 </RelativeLayout>

@@ -28,31 +28,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!--
-        <TextView
-            android:text="Training Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/trainingNameTextView" />
-            -->
 
-        <!--
-        <TextView
-            android:text="Description"
-            android:layout_width="95dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/trainingDescriptionTextView" />
-        -->
-<!--
-        <ImageView
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/trainingDescriptionTextView"
-            android:id="@+id/image_show"
-            android:layout_width="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:layout_height="wrap_content"/>
--->
         <TextView
             android:text="Training Name"
             android:layout_width="match_parent"

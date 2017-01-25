@@ -1,7 +1,7 @@
 package com.hsrt.euebt;
 
 /**
- * Created by Johannes on 11.12.2016.
+ * Created by Tugrul on 11.12.2016.
  */
 
 import java.io.Serializable;

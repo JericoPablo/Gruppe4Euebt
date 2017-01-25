@@ -44,15 +44,7 @@ public class TrainingAdapter extends RecyclerView.Adapter<TrainingAdapter.ViewHo
         //Training Name wird ausgelesen und gesetzt
         viewHolder.trainingNameTextView.setText(training.getName());
         //Training TimeStamp wird ausgelesen und gesetzt
-        /* [Johannes]
-         * Die Formatierung würde ich so ändern, dass man auch das Datum und dafür keine Sekunden sieht:
-         * viewHolder.timeStamp.setText(new SimpleDateFormat("d.M.y h:m a").format(new Date(training.getTimestamp() * 1000)));
-          */
         viewHolder.timeStamp.setText(new SimpleDateFormat("d.M.y - h:m a").format(new Date(training.getTimestamp() * 1000)));
-        System.out.println("AMK" + new SimpleDateFormat("d.M.y - h:m a").format(new Date(training.getTimestamp() * 1000)));
-        //viewHolder.timeStamp.setText((DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date(training.getTimestamp()*1000)))+"");
-        System.out.println("===================TRAININGADAPTER: "+(DateFormat.getTimeInstance(DateFormat.MEDIUM).format(new Date(training.getTimestamp()*1000)))+"");
-        System.out.println("===================Training.getTimestamp(): "+training.getTimestamp());
         viewHolder.bind(training, listener);
     }
 

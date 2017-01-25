@@ -120,9 +120,12 @@ public class ShowTrainingActivity extends AppCompatActivity implements OnMapRead
     public boolean onOptionsItemSelected(MenuItem item) {
         List<Training> TrainingList = datasource.getAllTrainingsWithName(showTraining.getName());
 
-        for (Training t: TrainingList) {
-            datasource.deleteTraining(t);
-        }
+//        for (Training t: TrainingList) {
+  //          datasource.deleteAllTraining(showTraining);
+    //    }
+
+        datasource.deleteAllTraining(showTraining);
+        datasource.close();
         result = RESULT_OK;
         finish();
         return true;
@@ -131,7 +134,6 @@ public class ShowTrainingActivity extends AppCompatActivity implements OnMapRead
     @Override
     public void finish() {
         Intent intent = new Intent();
-        System.out.println(showTraining.getName());
         intent.putExtra("deleteTraining", showTraining);
         setResult(result, intent);
         super.finish();

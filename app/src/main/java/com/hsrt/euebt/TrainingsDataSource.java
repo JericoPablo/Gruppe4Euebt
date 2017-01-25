@@ -97,6 +97,12 @@ public class TrainingsDataSource {
         database.delete(MySQLiteHelper.TABLE_TRAININGS, MySQLiteHelper.COLUMN_TIMESTAMP + " = " + timestamp, null);
     }
 
+    public void deleteAllTraining(Training training) {
+
+        database.delete(MySQLiteHelper.TABLE_TRAININGS,null, null);
+    }
+
+
     /**
      * Returns all names of training units stored in the database.
      * @return A list of all names of training units stored in the database. Each name is contained once.
